@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { firstController } from "./app/controller";
+import signup from "./app/LoginController/signup";
 
 const router: Router = Router()
 
-router.get("/", firstController.home);
+router.post("/signup", signup);
 
 export { router };
