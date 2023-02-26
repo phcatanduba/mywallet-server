@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import SignupModel from "./signupModel";
 
@@ -12,9 +13,23 @@ export default function signup(req: Request, res: Response) {
       })
   }
 
+  saveUser(request)
+
   return res.json({
     response: validation
   });
+}
+
+async function saveUser(request: SignupModel) {
+  const prisma = new PrismaClient()
+  const createUser = await prisma.user.create({
+    data: {
+      name: request.name.toString(),
+      email: request.email.toString(),
+      password: request.password.toString(),
+      cpf: request.cpf.toString()
+    }
+  })
 }
 
 function requestValidation(request: SignupModel) {
